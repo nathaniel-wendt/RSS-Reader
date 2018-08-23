@@ -42,7 +42,6 @@ $(function() {
 
 
     describe('The Menu', function() {
-
         // This test ensures the menu element is hidden by default.
         it('is hidden by default', function() {
             expect(body.classList.contains('menu-hidden')).toBe(true);
@@ -56,7 +55,22 @@ $(function() {
             menu.click();
             expect(body.classList.contains('menu-hidden')).toBe(true);
         });
+    });
 
+
+    describe('Initial Entries', function() {
+        // This let's Jasmine know that our beforeEach function
+        // has finished and it can proceed with our test.
+        beforeEach(function(done) {
+            loadFeed(0, done);
+        });
+
+        // This test ensures when the loadFeed function is called and completes,
+        // there is at least one .entry element within the .feed container.
+        it('has at least one entry', function() {
+            let entries = $('.feed .entry');
+            expect(entries.length).toBeGreaterThan(0);
+        });
     });
 
 
