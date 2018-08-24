@@ -1,15 +1,11 @@
-/* feedreader.js
- *
- * This is the spec file that Jasmine will read and contains
- * all of the tests that will be run against your application.
- */
+const body = document.querySelector('body');
+const menu = document.querySelector('.menu-icon-link');
+const feed = document.querySelector('.feed');
 
 /* All test suites are placed within the $() function,
  * since some of these tests may require DOM elements.
  * This ensures they don't run until the DOM is ready.
  */
-const body = document.querySelector('body');
-const menu = document.querySelector('.menu-icon-link');
 
 $(function() {
 
@@ -47,8 +43,7 @@ $(function() {
             expect(body.classList.contains('menu-hidden')).toBe(true);
         });
 
-        // This test ensures the menu element is hidden by default
-        // and the menu can be toggled between hidden/shown on click.
+        // This test ensures the menu can be toggled between hidden/shown on click.
         it('can be toggled on/off', function() {
             menu.click();
             expect(body.classList.contains('menu-hidden')).toBe(false);
@@ -74,19 +69,21 @@ $(function() {
     });
 
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    describe('New Feed Selection', function() {
+        // This loads then reloads the feed, storing the feeds to test for differences
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                firstFeed = feed.innerHTML;
+            });
+            loadFeed(1, function() {
+                secondFeed = feed.innerHTML;
+                done();
+            });
+        });
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
-
-    /* TODO: Write a new test suite named "New Feed Selection" */
-
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+        // This test ensures the feed changes on every load.
+        it('changes feed content', function() {
+            expect(firstFeed).not.toEqual(secondFeed);
+        });
+    });
 }());
