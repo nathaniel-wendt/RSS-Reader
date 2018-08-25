@@ -74,10 +74,11 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 firstFeed = feed.innerHTML;
-            });
-            loadFeed(1, function() {
+
+                loadFeed(1, function() {
                 secondFeed = feed.innerHTML;
-                done();
+                    done();
+                });
             });
         });
 
